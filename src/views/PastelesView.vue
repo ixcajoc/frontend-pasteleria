@@ -104,90 +104,129 @@ onMounted(cargarPasteles)
 </script>
 
 <template>
-  <h2 class="mb-4">Gestión de Pasteles</h2>
+  <div class="pasteles-section">
 
-  <AlertMessage :tipo="alerta.tipo" :mensaje="alerta.mensaje" @cerrar="cerrarAlerta" />
+  
+    <h2 class="mb-4 section__title">Gestión de Pasteles</h2>
 
-  <!-- Formulario -->
-  <div class="card mb-4">
-    <div class="card-header fw-bold">
-      {{ editando ? 'Editar pastel' : 'Nuevo pastel' }}
-    </div>
-    <div class="card-body">
-      <form @submit.prevent="guardar">
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label class="form-label">Nombre <span class="text-danger">*</span></label>
-            <input v-model="form.nombre" type="text" class="form-control" placeholder="Ej: Pastel de Chocolate" />
-            <div v-if="errores.nombre" class="error-text">{{ errores.nombre }}</div>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Preparado por</label>
-            <input v-model="form.preparado_por" type="text" class="form-control" placeholder="Nombre del repostero" />
-          </div>
-          <div class="col-12">
-            <label class="form-label">Descripción</label>
-            <textarea v-model="form.descripcion" class="form-control" rows="2" placeholder="Descripción del pastel"></textarea>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Fecha de creación</label>
-            <input v-model="form.fecha_creacion" type="date" class="form-control" />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Fecha de vencimiento</label>
-            <input v-model="form.fecha_vencimiento" type="date" class="form-control" />
-            <div v-if="errores.fecha_vencimiento" class="error-text">{{ errores.fecha_vencimiento }}</div>
-          </div>
-        </div>
-        <div class="mt-3">
-          <button type="submit" class="btn btn-primary">
-            {{ editando ? 'Actualizar' : 'Guardar' }}
-          </button>
-          <button v-if="editando" type="button" class="btn btn-secondary ms-2" @click="limpiarFormulario">
-            Cancelar
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
+    <AlertMessage :tipo="alerta.tipo" :mensaje="alerta.mensaje" @cerrar="cerrarAlerta" />
 
-  <!-- Tabla -->
-  <div class="card">
-    <div class="card-header fw-bold">Lista de pasteles</div>
-    <div class="card-body">
-      <div v-if="cargando" class="text-center text-muted py-3">Cargando...</div>
-      <div v-else-if="pasteles.length === 0" class="text-center text-muted py-3">
-        No hay pasteles registrados.
+    <!-- Formulario -->
+    <div class="card mb-4">
+      <div class="card-header fw-bold">
+        {{ editando ? 'Editar pastel' : 'Nuevo pastel' }}
       </div>
-      <div v-else class="table-responsive">
-        <table class="table table-hover align-middle">
-          <thead class="table-light">
-            <tr>
-              <th>#</th>
-              <th>Nombre</th>
-              <th>Descripción</th>
-              <th>Preparado por</th>
-              <th>Creación</th>
-              <th>Vencimiento</th>
-              <th class="text-end">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in pasteles" :key="item.id_pastel">
-              <td>{{ item.id_pastel }}</td>
-              <td>{{ item.nombre }}</td>
-              <td>{{ item.descripcion || '—' }}</td>
-              <td>{{ item.preparado_por || '—' }}</td>
-              <td>{{ item.fecha_creacion || '—' }}</td>
-              <td>{{ item.fecha_vencimiento || '—' }}</td>
-              <td class="text-end">
-                <button class="btn btn-sm btn-outline-primary me-1" @click="editar(item)">Editar</button>
-                <button class="btn btn-sm btn-outline-danger" @click="eliminar(item.id_pastel)">Eliminar</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card-body">
+        <form @submit.prevent="guardar">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nombre <span class="text-danger">*</span></label>
+              <input v-model="form.nombre" type="text" class="form-control" placeholder="Ej: Pastel de Chocolate" />
+              <div v-if="errores.nombre" class="error-text">{{ errores.nombre }}</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Preparado por</label>
+              <input v-model="form.preparado_por" type="text" class="form-control" placeholder="Nombre del repostero" />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Descripción</label>
+              <textarea v-model="form.descripcion" class="form-control" rows="2" placeholder="Descripción del pastel"></textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Fecha de creación</label>
+              <input v-model="form.fecha_creacion" type="date" class="form-control" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Fecha de vencimiento</label>
+              <input v-model="form.fecha_vencimiento" type="date" class="form-control" />
+              <div v-if="errores.fecha_vencimiento" class="error-text">{{ errores.fecha_vencimiento }}</div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <button type="submit" class="btn btn-form">
+              {{ editando ? 'Actualizar' : 'Guardar' }}
+            </button>
+            <button v-if="editando" type="button" class="btn btn-form ms-2" @click="limpiarFormulario">
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="card">
+      <div class="card-header fw-bold">Lista de pasteles</div>
+      <div class="card-body">
+        <div v-if="cargando" class="text-center text-muted py-3">Cargando...</div>
+        <div v-else-if="pasteles.length === 0" class="text-center text-muted py-3">
+          No hay pasteles registrados.
+        </div>
+        <div v-else class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Preparado por</th>
+                <th>Creación</th>
+                <th>Vencimiento</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in pasteles" :key="item.id_pastel">
+                <td>{{ item.id_pastel }}</td>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.descripcion || '—' }}</td>
+                <td>{{ item.preparado_por || '—' }}</td>
+                <td>{{ item.fecha_creacion || '—' }}</td>
+                <td>{{ item.fecha_vencimiento || '—' }}</td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-outline-primary me-1" @click="editar(item)">Editar</button>
+                  <button class="btn btn-sm btn-outline-danger" @click="eliminar(item.id_pastel)">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+  .pasteles-section {
+    --rosa: #f7b7c3;
+    --rosa-suave: #fde7ec;
+    --marron: #8d4a2f;
+    --marron-suave: #b5805f;
+    --crema: #fff8f2;
+    --texto: #4a3b33;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: var(--texto);
+  }
+
+  .section__title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    color: var(--marron);
+    margin: 0;
+  }
+  .btn-form {
+    border: none;
+    background: var(--marron);
+    color: #fff;
+    font-weight: 700;
+    padding: 0.55rem 1.25rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(247, 183, 195, 0.6);
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+  .btn-form:hover {
+    transform: translateY(-2px);
+    background: var(--marron-suave);
+    box-shadow: 0 6px 18px rgba(141, 74, 47, 0.35);
+  }
+</style>

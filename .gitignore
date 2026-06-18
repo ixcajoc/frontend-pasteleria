@@ -4,10 +4,10 @@ node_modules/
 # Archivos de compilación
 dist/
 
-# Variables de entorno
-.env
-.env.local
-.env.*.local
+# Variables de entorno, las dejo a la vista para que se tenga referencia de como las tenia en mi proyecto
+# .env
+# .env.local
+# .env.*.local
 
 # Archivos del sistema
 .DS_Store
