@@ -1,0 +1,33 @@
+/* Estilos propios de la aplicación (complementan a Bootstrap) */
+
+body {
+  background-color: #f5f6fa;
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+/* Espaciado del contenedor principal */
+.main-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+/* Tarjetas con sombra suave */
+.card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Resalta filas de tablas al pasar el mouse */
+.table-hover tbody tr:hover {
+  background-color: #fdf3e7;
+}
+
+/* Marca de campo inválido */
+.error-text {
+  color: #dc3545;
+  font-size: 0.85rem;
+}
