@@ -66,6 +66,15 @@ Si se tiene problema:
    Tambien puede usar Postman o Insomnia para confirmar las rutas:
    GET http://localhost/backend/api/reporte.php
 
+4. Servidor
+   Puede testear las apis y la base de datos alojadas en INFINITYFREE desde alguna herramienta como postman, Insomnia o directametne en su barra de navegador:
+   https://ixcajoc.freedev.app/
+   https://ixcajoc.freedev.app/api/ingredientes.php
+   https://ixcajoc.freedev.app/api/pasteles.php
+   https://ixcajoc.freedev.app/api/reporte.php
+   https://ixcajoc.freedev.app/api/pastel-ingredientes.php
+
+
 ---
 
 ### 3. Frontend (Vue.js)
