@@ -49,7 +49,7 @@ async function iniciarSesion() {
       errorGeneral.value = data.message || 'Usuario o contraseña incorrectos.'
     }
   } catch (e) {
-    // aqui si el backend no llegara a responde, usa las claves quemadas
+    // por si el backend no responde dejo quemada las claves
     if (
       form.usuario.trim() === CREDENCIALES.usuario &&
       form.contrasena === CREDENCIALES.contrasena
